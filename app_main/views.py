@@ -21,7 +21,7 @@ def home(request):
         middle_en = request.POST['MiddleNameEn']
         last_en = request.POST['LastNameEn']
 
-        audio = request.POST('audio_data')
+        audio = request.FILES.get('audio_file')
 
         if audio is None:
             print('No audio')
