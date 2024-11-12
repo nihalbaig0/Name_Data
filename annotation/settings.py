@@ -66,11 +66,11 @@ WSGI_APPLICATION = 'annotation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'namedb',
-        'USER': 'noyon',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',  # Set to your PostgreSQL server host
-        'PORT': '5432',       # Default port for PostgreSQL
+        'NAME': os.environ.get('POSTGRES_DB', 'namedb'),
+        'USER': os.environ.get('POSTGRES_USER', 'noyon'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '1234'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 
