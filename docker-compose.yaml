@@ -3,7 +3,16 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "
+        echo 'Waiting for PostgreSQL...' &&
+        while ! nc -z db 5432; do
+          sleep 1
+        done &&
+        echo 'PostgreSQL started' &&
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000
+      "
     volumes:
       - .:/app
       - media_volume:/app/media
@@ -11,6 +20,10 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql://noyon:1234@db:5432/namedb
+      - POSTGRES_DB=namedb
+      - POSTGRES_USER=noyon
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_HOST=db
       - DEBUG=1
     depends_on:
       - db

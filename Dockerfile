@@ -1,16 +1,14 @@
-# Dockerfile
 FROM python:3.10
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set work directory
 WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    postgresql-client
+    postgresql-client \
+    netcat-traditional
 
 # Install Python dependencies
 COPY requirements.txt /app/
@@ -23,4 +21,4 @@ COPY . /app/
 RUN mkdir -p /app/media/audio
 
 # Set permissions
-RUN chmod +x /app/manage.py
+RUN chmod -R 755 /app
