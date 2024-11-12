@@ -5,7 +5,7 @@
 
 ``docker-compose up --build``
 
-### If your want to rebuild the containers
+###  Rebuild the containers
 
 ```
 # Remove any existing containers and images
